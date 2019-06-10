@@ -5,6 +5,7 @@ from lib.cart import Cart
 from lib.browser import Browser
 from lib.product import Product
 from lib.checkout import Checkout
+from lib.login_page import LoginPage
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote.remote_connection import RemoteConnection
@@ -86,7 +87,8 @@ def setup(request, driver):
     cart = Cart(browser)
     product = Product(browser)
     checkout = Checkout(browser)
-    return browser, inventory, product, cart, checkout
+    login = LoginPage(browser)
+    return browser, inventory, product, cart, checkout, login
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)

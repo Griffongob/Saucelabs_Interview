@@ -12,13 +12,16 @@ class Browser(object):
     def go_to_url(self, url):
         self.driver.get(url)
 
+    def current_url(self):
+        return self.driver.current_url
+
     def refresh(self):
         self.driver.refresh()
 
     def back(self):
         self.driver.back()
 
-    def select(self, selector, multiples=False, wait_for_elem_to_be_visible=True, timeout=120, wait_for_elem_to_be_present=False):
+    def select(self, selector, multiples=False, wait_for_elem_to_be_visible=True, timeout=5, wait_for_elem_to_be_present=False):
         try:
             if wait_for_elem_to_be_present:
                 self.wait_for_element_to_be_present(selector, timeout=timeout)
@@ -32,25 +35,25 @@ class Browser(object):
             raise NoSuchElementException
         return element
 
-    def wait_for_element_to_display(self, selector, timeout=120, step=0.05):
+    def wait_for_element_to_display(self, selector, timeout=5, step=0.05):
         try:
             WebDriverWait(self.driver, timeout, step).until(EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
         except TimeoutException:
             raise NoSuchElementException(selector)
 
-    def wait_for_element_to_be_present(self, selector, timeout=120, step=0.05):
+    def wait_for_element_to_be_present(self, selector, timeout=5, step=0.05):
         try:
             WebDriverWait(self.driver, timeout, step).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, selector)))
         except TimeoutException:
             raise NoSuchElementException(selector)
 
-    def wait_for_element_to_be_clickable(self, selector, timeout=120, step=0.05):
+    def wait_for_element_to_be_clickable(self, selector, timeout=5, step=0.05):
         try:
             WebDriverWait(self.driver, timeout, step).until(EC.element_to_be_clickable((By.CSS_SELECTOR, selector)))
         except TimeoutException:
             raise NoSuchElementException(selector)
 
-    def wait_for_element_to_not_display(self, selector, timeout=120, step=0.05):
+    def wait_for_element_to_not_display(self, selector, timeout=5, step=0.05):
         try:
             WebDriverWait(self.driver, timeout, step).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, selector)))
         except TimeoutException:

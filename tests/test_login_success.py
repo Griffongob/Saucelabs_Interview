@@ -1,12 +1,11 @@
 import pytest
 
 
-@pytest.mark.usefixtures("driver")
-def test_valid_crentials_login(driver):
-    driver.get('http://www.saucedemo.com')
-
-    driver.find_element_by_id('user-name').send_keys('standard_user')
-    driver.find_element_by_id('password').send_keys('secret_sauce')
-    driver.find_element_by_css_selector('.btn_action').click()
-
-    assert "/inventory.html" in driver.current_url
+@pytest.mark.usefixtures("setup")
+def test_valid_crentials_login(setup):
+    browser, login = setup[0], setup[5]
+    browser.go_to_url('http://www.saucedemo.com')
+    login.enter_username('standard_user')
+    login.enter_password('secret_sauce')
+    login.click_submit()
+    assert "/inventory.html" in browser.current_url()
