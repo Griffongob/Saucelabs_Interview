@@ -1,4 +1,4 @@
-from header import Header
+from lib.header import Header
 
 
 class Cart(object):
@@ -10,6 +10,13 @@ class Cart(object):
         cart_item_elems = self.browser.select('.cart_item', multiples=True)
         cart_items = [CartItem(elem, self.browser) for elem in cart_item_elems]
         return cart_items
+
+    def is_item_in_cart(self, requested_item_name):
+        cart_items = self.get_cart_items()
+        for item in cart_items:
+            if item.item_name == requested_item_name:
+                return True
+        return False
 
 
 class CartItem(object):

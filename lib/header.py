@@ -7,3 +7,6 @@ class Header(object):
 
     def is_logo_present(self):
         return self.browser.is_element_displayed('.app_logo')
+
+    def click_cart(self):
+        self.browser.select('#shopping_cart_container').click()

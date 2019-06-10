@@ -3,52 +3,14 @@ from os import environ
 from lib.inventory import Inventory
 from lib.cart import Cart
 from lib.browser import Browser
+from lib.product import Product
+from lib.checkout import Checkout
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
 import urllib3
 urllib3.disable_warnings()
-#
-# browsers = [
-#     # {
-#     #     "seleniumVersion": '3.4.0',
-#     #     "platform": "Windows 10",
-#     #     "browserName": "MicrosoftEdge",
-#     #     "version": "14.14393"
-#     # }, {
-#     #     "seleniumVersion": '3.4.0',
-#     #     "platform": "Windows 10",
-#     #     "browserName": "firefox",
-#     #     "version": "60.0"
-#     # }, {
-#     #     "seleniumVersion": '3.4.0',
-#     #     "platform": "Windows 7",
-#     #     "browserName": "internet explorer",
-#     #     "version": "11.0"
-#     # }, {
-#     #     "seleniumVersion": '3.4.0',
-#     #     "platform": "OS X 10.12",
-#     #     "browserName": "safari",
-#     #     "version": "11.0"
-#     # },
-#     {
-#         "seleniumVersion": '3.4.0',
-#         "platform": "macOS 10.13",
-#         "browserName": "chrome",
-#         "version": "latest"
-#     }]
-#
-# def pytest_generate_tests(metafunc):
-#     if 'driver' in metafunc.fixturenames:
-#         metafunc.parametrize('browser_config',
-#                              browsers,
-#                              ids=_generate_param_ids('broswerConfig', browsers),
-#                              scope='function')
-#
-#
-# def _generate_param_ids(name, values):
-#     return [("<%s:%s>" % (name, value)).replace('.', '_') for value in values]
 
 
 def pytest_addoption(parser):
@@ -122,7 +84,9 @@ def setup(request, driver):
     browser = Browser(driver)
     inventory = Inventory(browser)
     cart = Cart(browser)
-    return browser, inventory, cart
+    product = Product(browser)
+    checkout = Checkout(browser)
+    return browser, inventory, product, cart, checkout
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)

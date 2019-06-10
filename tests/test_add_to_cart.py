@@ -3,7 +3,9 @@ import pytest
 
 @pytest.mark.usefixtures("driver", "setup")
 def test_add_to_cart(driver, setup):
-    driver.get('http://www.saucedemo.com/inventory.html')
+    browser,inventory, product, cart = setup
+    # driver.get('http://www.saucedemo.com/inventory.html')
+    browser.go_to_url('http://www.saucedemo.com/inventory.html')
     driver.find_element_by_class_name('btn_primary').click()
 
     assert driver.find_element_by_class_name('shopping_cart_badge').text == '1'

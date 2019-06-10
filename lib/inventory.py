@@ -1,6 +1,5 @@
 from selenium.webdriver.support.select import Select
-from header import Header
-
+from lib.header import Header
 
 class Inventory(object):
     def __init__(self, browser):
@@ -33,7 +32,7 @@ class InventoryItem(object):
 
     @property
     def item_image(self):
-        img_elem = self.elem.find_element_by_css_selector('.inventory_item_img')
+        img_elem = self.elem.find_element_by_css_selector('img.inventory_item_img')
         return img_elem.get_attribute('src')
 
     @property
@@ -47,12 +46,12 @@ class InventoryItem(object):
     def click_add_to_cart(self):
         add_button = self.elem.find_element_by_css_selector('.btn_inventory')
         add_button.click()
-        self.browser.wait_for_element_to_not_display('.btn_primary')
+        # self.browser.wait_for_element_to_not_display('.btn_primary')
 
     def click_remove(self):
         remove_button = self.elem.find_element_by_css_selector('.btn_inventory')
         remove_button.click()
-        self.browser.wait_for_element_to_not_display('.btn_secondary')
+        # self.browser.wait_for_element_to_not_display('.btn_secondary')
 
     def click_item_name(self):
         self.elem.find_element_by_css_selector('.inventory_item_name').click()

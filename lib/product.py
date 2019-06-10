@@ -1,4 +1,4 @@
-from header import Header
+from lib.header import Header
 
 
 class Product(object):
@@ -7,7 +7,7 @@ class Product(object):
         self.header = Header(browser)
 
     def product_image_url(self):
-        img_elem = self.browser.select('.inventory_details_img')
+        img_elem = self.browser.select('img.inventory_details_img')
         img_url = img_elem.get_attribute('src')
         return img_url
 
