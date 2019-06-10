@@ -1,8 +1,8 @@
 import pytest
 
 
-@pytest.mark.usefixtures("driver")
-def test_add_to_cart(driver):
+@pytest.mark.usefixtures("driver", "setup")
+def test_add_to_cart(driver, setup):
     driver.get('http://www.saucedemo.com/inventory.html')
     driver.find_element_by_class_name('btn_primary').click()
 
